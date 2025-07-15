@@ -1,10 +1,15 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { auth } from '../firebase.init';
+import { FaEye } from 'react-icons/fa';
+import { FaEyeSlash } from 'react-icons/fa';
 
 const Register = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [success, setSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  //   event handler for handleregister
   const handleRegister = (event) => {
     event.preventDefault();
     const email = event.target.email.value;
@@ -27,7 +32,6 @@ const Register = () => {
 
       return;
     }
-   
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
@@ -47,7 +51,7 @@ const Register = () => {
 
       <div className="card bg-base-100 w-full mx-auto max-w-sm shrink-0 shadow-xl mt-6">
         <div className="card-body">
-          <form onSubmit={handleRegister} className="fieldset">
+          <form onSubmit={handleRegister} className="fieldset relative">
             <label className="label">Email</label>
             <input
               type="email"
@@ -57,11 +61,19 @@ const Register = () => {
             />
             <label className="label">Password</label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               name="password"
               className="input"
               placeholder="Password"
             />
+
+            <button
+              onClick={() => setShowPassword(!showPassword)}
+              className="text-xl cursor-pointer absolute right-8 top-[108px] z-1"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye></FaEye>}
+            </button>
+
             <div>
               <a className="link link-hover">Forgot password?</a>
             </div>
@@ -70,7 +82,7 @@ const Register = () => {
         </div>
       </div>
 
-      <div className='max-w-96 mx-auto'>
+      <div className="max-w-96 mx-auto">
         {errorMessage && (
           <p className="text-red-500 text-center my-6">{errorMessage}</p>
         )}
