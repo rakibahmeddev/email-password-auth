@@ -15,13 +15,17 @@ const Register = () => {
     event.preventDefault();
     const email = event.target.email.value;
     const password = event.target.password.value;
+    const terms = event.target.terms.checked;
+    console.log(terms)
 
+    // reset the session 
     setErrorMessage('');
     setSuccess(false);
 
-    // if(password < 6){
-    //     setErrorMessage('Password should be at least 6 characters or longer')
-    // }
+   if(!terms){
+        setErrorMessage('Please Accept the terms & conditions!')
+        return
+   }
 
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/;
@@ -75,12 +79,21 @@ const Register = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye></FaEye>}
             </button>
 
-            <div>
-              <a className="link link-hover">Forgot password?</a>
+            <div className="mt-4">
+              <label className="label text-sm">
+                <input type="checkbox" name="terms"  className="checkbox" />
+                Accept our terms & conditions
+              </label>
             </div>
+
             <button className="btn btn-neutral mt-4">Register</button>
 
-            <p className='text-sm'>Already have an account? <Link to="/login" className=' text-green-500'>Login</Link></p>
+            <p className="text-sm">
+              Already have an account?{' '}
+              <Link to="/login" className=" text-green-500">
+                Login
+              </Link>
+            </p>
           </form>
         </div>
       </div>
