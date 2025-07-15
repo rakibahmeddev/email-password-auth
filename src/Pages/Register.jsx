@@ -4,6 +4,7 @@ import { auth } from '../firebase.init';
 
 const Register = () => {
   const [errorMessage, setErrorMessage] = useState('');
+  const [success, setSuccess] = useState(false);
   const handleRegister = (event) => {
     event.preventDefault();
     const email = event.target.email.value;
@@ -14,10 +15,13 @@ const Register = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
         console.log('a user created', result.user);
+
+        setSuccess(true)
       })
       .catch((error) => {
         console.log('Error', error);
         setErrorMessage(error.message);
+        setSuccess(false)
       });
   };
   return (
@@ -49,7 +53,9 @@ const Register = () => {
         </div>
       </div>
 
-      {errorMessage && <p className="text-red-500 text-center my-6">{errorMessage}</p>}
+      {errorMessage && <p className="text-red-500 text-center my-6">Maybe email already exist</p>} 
+      {success && <p className="text-green-400 text-center my-6">You have successfuly registerd</p>}
+      
     </div>
   );
 };
