@@ -2,23 +2,60 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 const Header = () => {
+  
   const links = (
-    <>
-      <NavLink to="/" className="text-base ml-6 text-right">
-        Home
-      </NavLink>
-      <NavLink to="/login" className="text-base ml-6 text-right">
-        Login
-      </NavLink>
-      <NavLink to="/register" className="text-base ml-6 text-right">
-        Register
-      </NavLink>
-    </>
-  );
+  <>
+    <NavLink
+      to="/"
+      className={({ isActive }) =>
+        `text-base ml-6 text-right hover:text-green-400 ${
+          isActive ? 'text-green-400 ' : ''
+        }`
+      }
+    >
+      Home
+    </NavLink>
+
+    <NavLink
+      to="/login"
+      className={({ isActive }) =>
+        `text-base ml-6 text-right hover:text-green-400 ${
+          isActive ? 'text-green-400 ' : ''
+        }`
+      }
+    >
+      Login
+    </NavLink>
+
+    <NavLink
+      to="/register"
+      className={({ isActive }) =>
+        `text-base ml-6 text-right hover:text-green-400 ${
+          isActive ? 'text-green-400 ' : ''
+        }`
+      }
+    >
+      Register
+    </NavLink>
+
+    <NavLink
+      to="/register2"
+      className={({ isActive }) =>
+        `text-base ml-6 text-right hover:text-green-400 ${
+          isActive ? 'text-green-400' : ''
+        }`
+      }
+    >
+      Register 2
+    </NavLink>
+  </>
+);
+
+  
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-base-100 border border-green-400 rounded-lg mt-6">
       <div className="navbar-start">
-        <Link to="/" className="btn btn-ghost text-xl">
+        <Link to="/" className="text-xl ml-2 font-bold">
           Emai Pass Auth
         </Link>
       </div>
