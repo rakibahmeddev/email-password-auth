@@ -2,58 +2,56 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 const Header = () => {
-  
   const links = (
-  <>
-    <NavLink
-      to="/"
-      className={({ isActive }) =>
-        `text-base ml-6 text-right hover:text-green-400 ${
-          isActive ? 'text-green-400 ' : ''
-        }`
-      }
-    >
-      Home
-    </NavLink>
+    <>
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          `text-base ml-6 text-right hover:text-green-400 ${
+            isActive ? 'text-green-400 ' : ''
+          }`
+        }
+      >
+        Home
+      </NavLink>
 
-    <NavLink
-      to="/login"
-      className={({ isActive }) =>
-        `text-base ml-6 text-right hover:text-green-400 ${
-          isActive ? 'text-green-400 ' : ''
-        }`
-      }
-    >
-      Login
-    </NavLink>
+      <NavLink
+        to="/login"
+        className={({ isActive }) =>
+          `text-base ml-6 text-right hover:text-green-400 ${
+            isActive ? 'text-green-400 ' : ''
+          }`
+        }
+      >
+        Login
+      </NavLink>
 
-    <NavLink
-      to="/register"
-      className={({ isActive }) =>
-        `text-base ml-6 text-right hover:text-green-400 ${
-          isActive ? 'text-green-400 ' : ''
-        }`
-      }
-    >
-      Register
-    </NavLink>
+      <NavLink
+        to="/register"
+        className={({ isActive }) =>
+          `text-base ml-6 text-right hover:text-green-400 ${
+            isActive ? 'text-green-400 ' : ''
+          }`
+        }
+      >
+        Register
+      </NavLink>
 
-    <NavLink
-      to="/register2"
-      className={({ isActive }) =>
-        `text-base ml-6 text-right hover:text-green-400 ${
-          isActive ? 'text-green-400' : ''
-        }`
-      }
-    >
-      Register 2
-    </NavLink>
-  </>
-);
+      <NavLink
+        to="/register2"
+        className={({ isActive }) =>
+          `text-base ml-6 text-right hover:text-green-400 ${
+            isActive ? 'text-green-400' : ''
+          }`
+        }
+      >
+        Register 2
+      </NavLink>
+    </>
+  );
 
-  
   return (
-    <div className="navbar bg-base-100 border border-green-400 rounded-lg mt-6">
+    <div className="navbar bg-base-100 border border-green-400 rounded-lg mt-6 sm:max-w-3xl mx-auto">
       <div className="navbar-start">
         <Link to="/" className="text-xl ml-2 font-bold">
           Emai Pass Auth
@@ -65,7 +63,7 @@ const Header = () => {
 
       {/* mobile menu start  */}
       <div className="navbar-end lg:hidden relative">
-        <div className="dropdown dropdown-end">
+        <div className="dropdown dropdown-end ">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +83,7 @@ const Header = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100  z-1 mt-3 w-50 pl-4 pr-6 "
+            className="menu menu-sm dropdown-content bg-green-50 rounded  z-1 mt-3 mr-[-9px] w-50 pl-4 pr-6 "
           >
             {links}
           </ul>
