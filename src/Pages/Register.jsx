@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { auth } from '../firebase.init';
 import { FaEye } from 'react-icons/fa';
 import { FaEyeSlash } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -78,6 +79,8 @@ const Register = () => {
               <a className="link link-hover">Forgot password?</a>
             </div>
             <button className="btn btn-neutral mt-4">Register</button>
+
+            <p className='text-sm'>Already have an account? <Link to="/login" className=' text-green-500'>Login</Link></p>
           </form>
         </div>
       </div>
