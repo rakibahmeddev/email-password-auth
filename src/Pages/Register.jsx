@@ -8,20 +8,37 @@ const Register = () => {
   const handleRegister = (event) => {
     event.preventDefault();
     const email = event.target.email.value;
-    const password = event.target.email.value;
+    const password = event.target.password.value;
 
-    setErrorMessage('')
+    setErrorMessage('');
+    setSuccess(false);
+
+    // if(password < 6){
+    //     setErrorMessage('Password should be at least 6 characters or longer')
+    // }
+
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/;
+
+    if (!passwordRegex.test(password)) {
+      setErrorMessage(
+        'Password should have at least one lowercase, uppercase, one number, and a special character'
+      );
+
+      return;
+    }
+   
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
         console.log('a user created', result.user);
 
-        setSuccess(true)
+        setSuccess(true);
       })
       .catch((error) => {
         console.log('Error', error);
         setErrorMessage(error.message);
-        setSuccess(false)
+        setSuccess(false);
       });
   };
   return (
@@ -53,9 +70,16 @@ const Register = () => {
         </div>
       </div>
 
-      {errorMessage && <p className="text-red-500 text-center my-6">Maybe email already exist</p>} 
-      {success && <p className="text-green-400 text-center my-6">You have successfuly registerd</p>}
-      
+      <div className='max-w-96 mx-auto'>
+        {errorMessage && (
+          <p className="text-red-500 text-center my-6">{errorMessage}</p>
+        )}
+        {success && (
+          <p className="text-green-400 text-center my-6">
+            You have successfully registered!
+          </p>
+        )}
+      </div>
     </div>
   );
 };
