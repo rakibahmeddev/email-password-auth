@@ -2,10 +2,13 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { auth } from '../firebase.init';
+import { FaEye } from 'react-icons/fa';
+import { FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
   const [success, setSuccess] = useState(false);
   const [loginError, SetLoginError] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -14,8 +17,8 @@ const Login = () => {
     console.log(email, password);
 
     // reset success and error message
-    setSuccess(false)
-    SetLoginError(false)
+    setSuccess(false);
+    SetLoginError(false);
 
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
@@ -24,7 +27,7 @@ const Login = () => {
       })
       .catch((error) => {
         console.log('ERROR', error);
-        SetLoginError(true)
+        SetLoginError(true);
       });
   };
 
@@ -44,13 +47,18 @@ const Login = () => {
             />
             <label className="label">Password</label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               name="password"
               className="input"
               placeholder="Password"
             />
 
-            <button className="text-xl cursor-pointer absolute right-8 top-[108px] z-1"></button>
+            <button
+              onClick={() => setShowPassword(!showPassword)}
+              className="text-xl cursor-pointer absolute right-8 top-[108px] z-1"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
 
             <div>
               <a className="link link-hover">Forgot password?</a>
@@ -69,7 +77,9 @@ const Login = () => {
 
       <div className="max-w-96 mx-auto">
         {loginError && (
-          <p className="text-red-500 text-center my-6">Invalid email or password</p>
+          <p className="text-red-500 text-center my-6">
+            Invalid email or password
+          </p>
         )}
         {success && (
           <p className="text-green-400 text-center my-6">

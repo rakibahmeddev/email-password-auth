@@ -1,5 +1,7 @@
-import React from 'react';
+import { signOut } from 'firebase/auth';
+import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { auth } from '../../firebase.init';
 
 const Header = () => {
   const links = (
@@ -35,17 +37,6 @@ const Header = () => {
         }
       >
         Register
-      </NavLink>
-
-      <NavLink
-        to="/register2"
-        className={({ isActive }) =>
-          `text-base ml-6 text-right hover:text-green-400 ${
-            isActive ? 'text-green-400' : ''
-          }`
-        }
-      >
-        Register 2
       </NavLink>
     </>
   );
