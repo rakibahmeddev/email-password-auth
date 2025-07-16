@@ -1,5 +1,8 @@
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import React, { useState } from 'react';
+import {
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { auth } from '../firebase.init';
 import { FaEye } from 'react-icons/fa';
@@ -9,6 +12,8 @@ const Login = () => {
   const [success, setSuccess] = useState(false);
   const [loginError, SetLoginError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [resetSuccess, setResetSuccess] = useState(false);
+  const emailRef = useRef();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -19,6 +24,7 @@ const Login = () => {
     // reset success and error message
     setSuccess(false);
     SetLoginError(false);
+    setResetSuccess(false);
 
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
@@ -29,6 +35,16 @@ const Login = () => {
         console.log('ERROR', error);
         SetLoginError(true);
       });
+  };
+
+  const handleForgetPassword = () => {
+    console.log(emailRef.current.value);
+    const email = emailRef.current.value;
+
+    sendPasswordResetEmail(auth, email).then(() => {
+      console.log('password reset email sent');
+      setResetSuccess(true);
+    });
   };
 
   return (
@@ -42,6 +58,7 @@ const Login = () => {
             <input
               type="email"
               name="email"
+              ref={emailRef}
               className="input"
               placeholder="Email"
             />
@@ -61,7 +78,9 @@ const Login = () => {
             </button>
 
             <div>
-              <a className="link link-hover">Forgot password?</a>
+              <a onClick={handleForgetPassword} className="link link-hover">
+                Forgot password?
+              </a>
             </div>
             <button className="btn btn-neutral mt-4">Login</button>
 
@@ -84,6 +103,11 @@ const Login = () => {
         {success && (
           <p className="text-green-400 text-center my-6">
             You have successfully logged in!
+          </p>
+        )}
+        {resetSuccess && (
+          <p className="text-green-400 text-center my-6">
+            A Password reset email has been sent!
           </p>
         )}
       </div>
