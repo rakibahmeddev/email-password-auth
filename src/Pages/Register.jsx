@@ -1,4 +1,7 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from 'firebase/auth';
 import React, { useState } from 'react';
 import { auth } from '../firebase.init';
 import { FaEye } from 'react-icons/fa';
@@ -16,16 +19,16 @@ const Register = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
     const terms = event.target.terms.checked;
-    console.log(terms)
+    console.log(terms);
 
-    // reset the session 
+    // reset the session
     setErrorMessage('');
     setSuccess(false);
 
-   if(!terms){
-        setErrorMessage('Please Accept the terms & conditions!')
-        return
-   }
+    if (!terms) {
+      setErrorMessage('Please Accept the terms & conditions!');
+      return;
+    }
 
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/;
@@ -43,6 +46,10 @@ const Register = () => {
         console.log('a user created', result.user);
 
         setSuccess(true);
+
+        sendEmailVerification(auth.currentUser).then(() => {
+          console.log('Email verification sent!');
+        });
       })
       .catch((error) => {
         console.log('Error', error);
@@ -81,7 +88,7 @@ const Register = () => {
 
             <div className="mt-4">
               <label className="label text-sm">
-                <input type="checkbox" name="terms"  className="checkbox" />
+                <input type="checkbox" name="terms" className="checkbox" />
                 Accept our terms & conditions
               </label>
             </div>
